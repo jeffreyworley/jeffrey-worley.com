@@ -78,8 +78,8 @@
 		    {value: 1, duration: 350},
 		    {value: 0, duration: 200}
 		  ],
-		  translateX: anime.stagger(10, {grid: [numColumns, numRows], from: 'center', axis: 'x'}),
-		  translateY: anime.stagger(10, {grid: [numColumns, numRows], from: 'center', axis: 'y'}),
+		  //translateX: anime.stagger([10, 10], {grid: [numColumns, numRows], from: 'center', axis: 'x'}),
+		  //translateY: anime.stagger([10, 10], {grid: [numColumns, numRows], from: 'center', axis: 'y'}),
 		  //rotateZ: anime.stagger([0, 40], {grid: [numColumns, numRows], from: 'center', axis: 'x'}),
 		  rotate: anime.stagger([270, 270], {grid: [numColumns, numRows], from: 'center'}),
 		  delay: anime.stagger(150, {grid: [numColumns, numRows], from: 'center'}),
