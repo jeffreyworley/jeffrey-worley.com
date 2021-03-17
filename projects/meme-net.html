@@ -1,0 +1,161 @@
+<!--
+     Jeffrey Worley
+     jeff@theworleys.com
+
+     index for personal website
+-->
+
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>Jeffrey Worley</title>
+    <script type="text/javascript" src="meme-net.js"></script>
+    <link rel="stylesheet" type="text/css" href="meme-net.css">
+  </head>
+  <body>
+  	
+  	<div id="content">
+  		<header class="header flex-row-align-center-just-center">
+    	<h1 class="flex-row-align-center">CSE 455: Computer Vision Final Project</h1>
+      </header>
+	    
+	    <main class="flex-column-align-center">
+
+	    	<article id="intro" class="flex-row-align-center-just-center">
+	    		<img src="../imgs/projects/meme-net/why-did-i-choose-this-project.jpg" alt="choosing memes over a real project">
+	    		<h2>
+	    			Welcome to Meme-Net, a neural network that can identify over 400 different meme formats with a 98% test accuracy
+	    		</h2>
+	    	</article>
+
+	    	<article>
+	    		<div class="flex-row-align-center-just-center">
+		    		<video controls>
+						  <source src="../videos/455PresentationVideo1080.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</div>
+	    	</article>
+
+        <article id="problem-description" class="flex-column-align-start">
+          <h2>Problem Description</h2>
+          <div class="flex-row-align-center-just-space-between">
+            <p class="small-p">
+              With the rise of social media, we've all seen the creation and evolution of memes. Beginning humbly with LOLcats, rage comics, and new grounds forums, memes have become a form of modern folklore. They can pop up in a moments notice as has been seen many times with Bernie Sanders (Most recently with his outfit and expression at President Biden's innauguration)
+            </p>
+            <a href="https://twitter.com/ashtroid22/status/1352085800301768704?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1352085800301768704%7Ctwgr%5E%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fwww.cnbc.com%2F2021%2F01%2F27%2Fbernie-sanders-mitten-meme-merchandise-raises-1point8-million-for-charity.html" target="_blank">
+              <img src="../imgs/projects/meme-net/bernie-sanders-mittens-forest-gump.jpeg" alt="bernie sanders wearing cute mittens sitting next to forest gump">
+            </a>
+            <p class="full-p">
+              As such, I thought it would be interesting to attempt to track meme trends on social media. A daunting task for an individual but trivial for a well trained neural network. <a href="https://github.com/jeffreyworley/meme-net" target="_blank"> Here is this project on github</a>.
+            </p>
+          </div>
+        </article>
+
+        <article id="previous-work" class="flex-column-align-start">
+          <h2>Previous work</h2>
+          <div class="flex-row-align-center-just-space-between">
+            <p>
+              This Neural Network is based on the pretrained resnet18 Neural Network provided in the <a href="https://pytorch.org/"><code>pytorch</code></a> python library. Along with this, I used example training and accuracy methods written by Joseph Redmon in a Transfer learning lecture he gave while I was taking CSE 455 at the University of Washington. This project would also not have been possible without numerous stackOverflow answers about writing bash scripts. <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/trim.sh" target="_blank"><code>trim.sh</code></a> is almost completely copied from <a href="https://stackoverflow.com/questions/15216370/how-to-count-number-of-files-in-each-directory" target="_blank"> this answer</a> with minor modifications made by me. 
+            </p>
+          </div>
+        </article>
+
+        <article id="my-approach" class="flex-column-align-start">
+          <h2>My Approach</h2>
+          <div class="flex-row-align-center-just-space-between">
+            <p>
+              I implemented this project in 3 different versions. This was, honestly, because I wasn't certain that any of this would work. In V1, I hard-coded 15 labels and scraped the images for those 15 labels. While I forgot to save a version of the source code for V1, I still have the ipnby for V1. In V2, I attempted to scrape both the labels and the images. My goal was to get ~500 labels, but some of my scripts failed and I only got 160 useable labels. I decided to train the neural net on these any way to see if I was wasting my time. After finding some success, I moved on to V3 which ended up with 419 labels. 
+            </p>
+            <p>
+              With the pretrained resnet18 model, I removed the final classification layer and replaced it with one that had as many outputs as meme labels and trained with 10 or 20 epochs (depending on the version) and a constant learning rate of 0.01.
+            </p>
+          </div>
+        </article>
+
+        <article id="datasets" class="flex-column-align-start">
+          <h2>Datasets</h2>
+          <div class="flex-row-align-center-just-space-between">
+            <p>
+              I was unable to find a suitable dataset, so I created my own. To do this I used <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank"><code>BeautifulSoup</code></a>, a python html processing library, to scrape data from <a href="https://imgflip.com/" target="_blank"><code>imgflip.com/</code></a>, a website that offers meme generating services.
+            </p>
+            <p>
+              First, I used <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/img_flip_template_scrapper.py" target="_blank"><code>img_flip_template_scrapper.py</code></a> to find meme labels from <a href="https://imgflip.com/memetemplates" target="_blank"><code>imgflip.com/memetemplates</code></a>. These labels are output to memeLabels.json for the next scrapper to access. 
+            </p>
+            <p>
+              After I had the labels for the meme formats, I used <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/img_flip_imgs_scraper.py" target="_blank"><code>img_flip_imgs_scraper.py</code></a> to scrape <code>imgflip.com/meme/&lt;meme label&gt;</code> to find links for examples of that meme format and create memes.csv. 
+            </p>
+            <p>
+              Once this csv file was created i used <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/meme_downloader.py" target="_blank"><code>meme_downloader.py</code></a> to download 100 images per label and create the file structure necessary for the pytorch data loader. This also creates <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/fetchedMemes.json" target="_blank"><code>fetchedMemes.json</code></a> which is a record of which labels the program was able to successfully download images for. Some labels in <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/memes.csv" target="_blank"><code>memes.csv</code></a> failed for many reasons (for example, some were meme formats that are gifs). While downloading, this program decides to put a downloaded image in <code>train/&lt;meme label&gt;/</code> 80% of the time and in <code>test/&lt;meme label&gt;/</code> 20% of the time. I decided that this would be a suitable split given that we will have 100 images per label total.
+            </p>
+            <p>
+              Next, I needed to do some file validation as some of the <a href="https://man7.org/linux/man-pages/man1/curl.1.html" target="_blank"><code>curl</code></a> commands failed. This is done by <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/valImages.sh" target="_blank"><code>valImages.sh</code></a> which checks for empty/invalid jpeg's and removes them using <a href="https://imagemagick.org/script/download.php" target="_blank"><code>imagemagick</code></a> a handy bash image processing library.
+            </p>
+            <p>
+              Finally, some labels just didn't have enough samples to make it worth training. So i used <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/trim.sh" target="_blank"><code>trim.sh</code></a> to count the number of files in <code>train/&lt;meme label&gt;/</code> and if it's fewer than 20, it deletes that label from <code>train/</code> and <code>test/</code> (!important if you run this file, only run it when your <code>pwd</code> is in <code>train/</code>. otherwise there are folders in <code>test/</code> that will be incorrectly deleted.)
+            </p>
+            <p>
+              However, this was just the files for meme formats. I also included a "not-a-meme" label as when I deploy this neural network, it will have to be able to know that some images are, in fact, not memes. To do this I use <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/not_meme_download.py" target="_blank"><code>not_meme_download.py</code></a> to create the necessary folders and download 300 random images from the open images validation dataset. The links of which are contained in <a href="https://github.com/cvdfoundation/open-images-dataset#download-images-with-bounding-boxes-annotations" target="_blank"><code>open-images-dataset-validation.tsv</code></a>
+            </p>
+          </div>
+        </article>
+
+        <article id="results" class="flex-column-align-start">
+          <h2>Results</h2>
+          <div class="flex-row-align-center-just-space-between">
+            <p>
+              Results for V1 (10 epochs):
+            </p>
+            <img class="results" src="../imgs/projects/meme-net/V1Results.png">
+          </div>
+          <br>
+          <div class="flex-row-align-center-just-space-between">
+            <p>
+              Results for V2 (10 epochs):
+            </p>
+            <img class="results" src="../imgs/projects/meme-net/V2Results.png">
+          </div>
+          <br>
+          <div class="flex-row-align-center-just-space-between">
+            <p>
+              Results for V3 (20 epochs):
+            </p>
+            <img class="results" src="../imgs/projects/meme-net/V3Results.png">
+          </div>
+          <div class="flex-row-align-center-just-space-between">
+            <p>
+              The pretrained resnet18 model worked incredibly for all 3 versions. You can see that testing accuracy declines between versions but that is to be expected as the dataset and number of labels increases. Plus, 98%+ accuracy is magnitudes higher than what I expected going into this.
+            </p>
+          </div> 
+        </article>
+
+        <article id="problems-in-development" class="flex-column-align-start">
+          <h2>Problems in development</h2>
+          <div>
+            <p>
+              Pytorch was a surprisingly easy library to work with in this case. So, one problem is that this project was much easier than I was expecting and may not been as interesting as i'd hoped. Because the machine-learning aspect of this project was so easy, the dataset creating was much, MUCH, harder. I ran into many problems that took hours to fix. Some wouldn't pop up until the model was almost done training (thus <a href="https://github.com/jeffreyworley/meme-net/blob/main/meme_classifier_V3/valImages.sh" target="_blank"><code>valImages.sh</code></a> came to be). 
+            </p>
+          </div>
+        </article>
+
+        <article id="next-steps" class="flex-column-align-start">
+          <h2>Next Steps</h2>
+          <div>
+            <p>
+              Once this quarter is over, I plan to get this model running on a server and use Reddit's API to query posts made to Reddit and track how many of each meme format is posted every day. Then I'll probably just leave this running as long as I can. I also plan to validate ~200 of these by hand to see if the model is truly working as well as the test accuracy would suggest. I've done this with ~25 memes so far and it hasn't gotten one wrong yet! Lastly, I want to figure out how to add new meme formats as they arise.
+            </p>
+          </div>
+        </article>
+
+        <article id="approach-retrospection" class="flex-column-align-start">
+          <h2>Approach Retrospection</h2>
+          <div>
+            <p>
+              This problem probably didn't warrant as complex as a model as resnet18. This project may have been more educational for me if I initially tried to create my own CNN to solve the problem. Further, I am worried that with the 20 epochs i used in V3, there may be some overfitting to this data set that will hinder its performance when deployed. Nonetheless, I am very happy with the results and can't wait to see what kind of data I will have in a years time!
+            </p>
+          </div>
+        </article>
+	    </main>
+  	</div>
+  </body>
+</html>
