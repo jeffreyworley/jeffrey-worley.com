@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.static("public"));
 
-app.use('/images')
+app.use('/imgs', express.static(__dirname + '/imgs'));
 app.get('/', function (req, res){
     res.type('text');
     res.send('Hello World from a node server!');
