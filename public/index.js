@@ -10,7 +10,7 @@
 	let numColumns = Math.floor(window.innerWidth / divWidth);
 	let numRows = Math.ceil(window.innerHeight / divWidth);
 
-	let ANIMATE = true;
+	let ANIMATE = false;
 	"use strict";
 
 	window.addEventListener("load", initPage);

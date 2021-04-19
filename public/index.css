@@ -45,7 +45,9 @@ main {
 }
 
 article {
-	padding-left: 5%;
+	width: 100%;
+	margin-left: 5%;
+	margin-right: 5%;
 	padding-top: 5%;
 	display: flex;
 	flex-flow: wrap;
@@ -63,15 +65,16 @@ p {
 	line-height: 2em;
 }
 
-#intro > p {
-	width: 65%;
+#intro p {
+	width: 55%;
 	height: auto;
 	padding-right: 5%;
+	padding-left: 5%;
 }
 
 img {
 	width: auto;
-	max-width: 340px;
+	max-width: 400px;
 	min-width: 200px;
 	height: auto;
 	margin-top: auto;
